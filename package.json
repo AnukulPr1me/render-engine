@@ -1,0 +1,24 @@
+{
+  "name": "syncspace",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnukulPr1me/syncSpace.git"
+  },
+  "author": "anukul",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnukulPr1me/syncSpace/issues"
+  },
+  "homepage": "https://github.com/AnukulPr1me/syncSpace#readme",
+  "dependencies": {
+    "express": "^4.19.2",
+    "nodemon": "^3.1.4",
+    "socket.io": "^4.7.5"
+  }
+}
