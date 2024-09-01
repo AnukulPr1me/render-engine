@@ -26,7 +26,7 @@ io.on('connection', (socket) => {
         console.log(connectedPeers);
     });
 });
- 
+
 server.listen(PORT, () => {
     console.log(`listening on ${PORT}`);
 });
