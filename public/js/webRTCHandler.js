@@ -15,7 +15,7 @@ export const sendPreOffer = (callType, calleePersonalCode) =>  {
       callType,
       calleePersonalCode
     }
-    ui.showCallingDialog(callingDialogRejectCallHnadler)
+    ui.showCallingDialog(callingDialogRejectCallHandler)
     wss.sendPreOffer(data); 
   }
 
@@ -35,12 +35,48 @@ export const handlePreOffer = (data) => {
 
 const acceptCallHandler = () => {
   console.log("call accepted");
+  sendPreOfferAnswer(constants.preOfferAnswer.CALL_ACCEPTED);
+  ui.showCallElements(connectedUserDetails.callType);
 };
 
 const rejectCallHandler = () => {
   console.log("call rejected");
+  sendPreOfferAnswer(constants.preOfferAnswer.CALL_REJECTED);
 };
 
-const callingDialogRejectCallHnadler = () => {
+const callingDialogRejectCallHandler = () => {
   console.log("rejecting the call");
+}
+
+const sendPreOfferAnswer = (preOfferAnswer) => {
+  const data = {
+    callerSocketId: connectedUserDetails.socketId,
+    preOfferAnswer
+  }
+  ui.removeAllDialogs();
+  wss.sendPreOfferAnswer(data);
+}
+
+export const handlePreOfferAnswer = (data) => {
+  const {preOfferAnswer}= data;
+  console.log('pre offer answer come');
+  console.log(data);
+
+  ui.removeAllDialogs();
+  
+  if(preOfferAnswer === constants.preOfferAnswer.CALLEE_NOT_FOUND) {
+    ui.showInfoDialog(preOfferAnswer); 
+  }
+
+  if(preOfferAnswer === constants.preOfferAnswer.CALL_UNAVAILABLE) {
+    ui.showInfoDialog(preOfferAnswer);
+  }
+
+  if(preOfferAnswer === constants.preOfferAnswer.CALL_REJECTED) {
+    ui.showInfoDialog(preOfferAnswer);
+  }
+
+  if(preOfferAnswer === constants.preOfferAnswer.CALL_ACCEPTED) {
+    ui.showCallElements(connectedUserDetails.callType);
+  }
 }

@@ -27,18 +27,35 @@ io.on('connection', (socket) => {
 
         if(connectedPeer){
             const data = {
-                callerSockerId: socket.id,
+                callerSocketId: socket.id,
                 callType,
             };
 
             io.to(calleePersonalCode).emit('pre-offer', data);
         }
+        else{
+            const data = {preOfferAnswer: 'CALLEE_NOT_FOUND',};
+            io.to(socket.id).emit('pre-offer-answer', data);
+        } 
+
     });
 
+    socket.on('pre-offer-answer', (data) => {
+        console.log("pre offer answer come");
+        console.log(data);
+        const {callerSocketId} = data;
+        const connectedPeer = connectedPeers.find(
+            (peerSocketId) => peerSocketId === callerSocketId
+        );
+
+        if(connectedPeer){
+            io.to(data.callerSocketId).emit('pre-offer-answer', data);
+        }
+    });
 
     socket.on("disconnect", () => {
         console.log("user disconnected");
-        const newConnectedPeers = connectedPeers.filter((peerSocketId) => peerSocketId !== socket.io);
+        const newConnectedPeers = connectedPeers.filter((peerSocketId) => peerSocketId !== socket.id);
         connectedPeers = newConnectedPeers;
         console.log(connectedPeers);
     });
