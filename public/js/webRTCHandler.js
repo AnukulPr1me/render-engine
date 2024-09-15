@@ -14,7 +14,7 @@ const defaultConstraints = {
 const configuration = {
   iceServers: [
     {
-      urls: 'stun: stun.1.google.com:13902'
+      urls: 'stun:stun.l.google.com:19302'
     }
   ]
 }
@@ -32,7 +32,7 @@ const createPeerConnection = () => {
   peerConnection = new RTCPeerConnection(configuration);
 
   peerConnection.onicecandidate = (event) => {
-    console.log("geeting ice candiadates from stun server");
+    console.log("getting ice candiadates from stun server");
     if(event.candidate){
 
     }
@@ -40,7 +40,7 @@ const createPeerConnection = () => {
 
   peerConnection.onconnectionstatechange = (event) => {
     if(peerConnection.connectionState === 'connected') {
-      console.log("succesfully onnected with other peer");
+      console.log("successfully connected with other peer");
     }
   }
 
@@ -91,6 +91,7 @@ export const handlePreOffer = (data) => {
 
 const acceptCallHandler = () => {
   console.log("call accepted");
+  createPeerConnection();
   sendPreOfferAnswer(constants.preOfferAnswer.CALL_ACCEPTED);
   ui.showCallElements(connectedUserDetails.callType);
 };
@@ -115,7 +116,7 @@ const sendPreOfferAnswer = (preOfferAnswer) => {
 
 export const handlePreOfferAnswer = (data) => {
   const {preOfferAnswer}= data;
-  console.log('pre offer answer come');
+  console.log('pre offer answer came');
   console.log(data);
 
   ui.removeAllDialogs();
@@ -132,7 +133,24 @@ export const handlePreOfferAnswer = (data) => {
     ui.showInfoDialog(preOfferAnswer);
   }
 
-  if(preOfferAnswer === constants.preOfferAnswer.CALL_ACCEPTED) {
+  if(preOfferAnswer === constants.preOfferAnswer.CALL_ACCEPTED) {  
     ui.showCallElements(connectedUserDetails.callType);
+    createPeerConnection();
+    sendWebRTCOffer();
   }
+};
+
+const sendWebRTCOffer = async () => {
+  const offer = await peerConnection.createOffer();
+  await peerConnection.setLocalDescription(offer);
+  wss.sendDataUsingWebRTCSignaling({
+    connectedUserSocketId: connectedUserDetails.socketId,
+    type: constants.webRTCSignaling.OFFER,
+    offer: offer,
+  });
+};
+
+export const handleWebRTCOffer = (data) =>{
+  console.log("web rtc offer came");
+  console.log(data);
 }
