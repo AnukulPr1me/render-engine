@@ -3,7 +3,7 @@ const http = require("http");
 const app = express();
 const server = http.createServer(app);
 const io = require("socket.io")(server);
-const PORT = process.env.PORT || 7000;
+const PORT = process.env.PORT || 7001;
 
 app.use(express.static("public"));
 app.get('/', (req, res) => {
@@ -57,7 +57,7 @@ io.on('connection', (socket) => {
         const {connectedUserSocketId} = data;
 
         const connectedPeer = connectedPeers.find(
-            (peerSocketId) => peerSocketId === connectedUserSocketId
+            (peerSocketId) => peerSocketId ===  connectedUserSocketId
         );
 
         if(connectedPeer){

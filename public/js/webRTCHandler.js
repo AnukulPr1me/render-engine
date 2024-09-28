@@ -34,9 +34,13 @@ const createPeerConnection = () => {
   peerConnection.onicecandidate = (event) => {
     console.log("getting ice candiadates from stun server");
     if(event.candidate){
-
+      wss.sendDataUsingWebRTCSignaling({
+        connectedUserSocketId: connectedUserDetails.socketId,
+        type: constants.webRTCSignaling.ICE_CANDIDATE,
+        candidate: event.candidate,
+      });
     }
-  }
+  };
 
   peerConnection.onconnectionstatechange = (event) => {
     if(peerConnection.connectionState === 'connected') {
@@ -150,7 +154,29 @@ const sendWebRTCOffer = async () => {
   });
 };
 
-export const handleWebRTCOffer = (data) =>{
+export const handleWebRTCOffer = async(data) =>{
+  await peerConnection.setRemoteDescription(data.offer);
+  const answer = await peerConnection.createAnswer();
+  await peerConnection.setLocalDescription(answer);
+  wss.sendDataUsingWebRTCSignaling({
+    connectedUserSocketId: connectedUserDetails.socketId,
+    type: constants.webRTCSignaling.ANSWER,
+    answer: answer,
+  });
   console.log("web rtc offer came");
   console.log(data);
+};
+
+export const handleWebRTCAnswer = async(data) => {
+  console.log("web rtc answer came");
+  await peerConnection.setRemoteDescription(data.answer);
+}
+
+export const handleWebRTCCandidate = async(data) => {
+  console.log("web rtc ice candidate came");
+  try{
+    await peerConnection.addIceCandidate(data.candidate);
+  }catch (err){
+    console.error('Error adding ice candidate:', err);
+  }
 }
