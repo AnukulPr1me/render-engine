@@ -2,6 +2,7 @@ import * as store from "./store.js";
 import * as wss from "./wss.js";
 import * as webRTCHandler from "./webRTCHandler.js";
 import * as constants from "./const.js";
+import * as ui from "./ui.js";
 
 const socket = io('/');
 
@@ -33,4 +34,21 @@ personalCodeVideoButton.addEventListener('click', () => {
   const calleePersonalCode = document.getElementById('personal_code_input').value;
   const callType = constants.callType.VIDEO_PERSONAL_CODE;
   webRTCHandler.sendPreOffer(callType, calleePersonalCode);
+});
+
+
+const micButton = document.getElementById('mic_button');
+micButton.addEventListener('click', () => {
+  const localStream = store.getState().localStream;
+  const micEnabled = localStream.getAudioTracks()[0].enabled;
+  localStream.getAudioTracks()[0].enabled = !micEnabled;
+  ui.updateMicButton(micEnabled);
+});
+
+const cameraButton = document.getElementById('camera_button');
+cameraButton.addEventListener('click', () => {
+  const localStream = store.getState().localStream;
+  const cameraEnabled = localStream.getVideoTracks()[0].enabled;
+  localStream.getVideoTracks()[0].enabled = !cameraEnabled;
+  ui.updateCameraButton(cameraEnabled);
 });

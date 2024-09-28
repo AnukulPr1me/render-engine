@@ -110,6 +110,22 @@ const showVideoCallElements = () => {
 
 };
 
+const micOnImgSrc = '../utils/images/mic.png';
+const micOffImgSrc = '../utils/images/micOff.png';
+
+export const updateMicButton = (micActive) => {
+  const micButtonImage = document.getElementById('mic_button_image');
+  micButtonImage.src = micActive? micOnImgSrc : micOffImgSrc;
+};
+
+const cameraOffImgSrc = '../utils/images/camera_off.png';
+const cameraOnImgSrc = '../utils/images/camera.png';
+
+export const updateCameraButton = (cameraActive) => {
+  const cameraButtonImage = document.getElementById('camera_button_image');
+  cameraButtonImage.src = cameraActive? cameraOffImgSrc : cameraOnImgSrc;
+};
+
 const enableDashboard = () => {
   const dashboardBlocker = document.getElementById("dashboard_blur");
   if(!dashboardBlocker.classList.contains('display_none')) {
