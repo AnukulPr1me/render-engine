@@ -136,6 +136,17 @@ export const updateCameraButton = (cameraActive) => {
   cameraButtonImage.src = cameraActive ? cameraOffImgSrc : cameraOnImgSrc;
 };
 
+export const appendMessage = (message, right = false) => {
+  const messagesContainer = document.getElementById("message_container");
+  const messageElement = right ? elements.getRightMessage(message) : elements.getLeftMessage(message);
+  messagesContainer.appendChild(messageElement);
+};
+
+export const clearMessenger = () => {
+  const messagesContainer = document.getElementById("message_container");
+  messagesContainer.querySelectorAll("*").forEach((n) =>n.remove());
+};
+
 const enableDashboard = () => {
   const dashboardBlocker = document.getElementById("dashboard_blur");
   if (!dashboardBlocker.classList.contains("display_none")) {
