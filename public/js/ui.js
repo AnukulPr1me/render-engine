@@ -147,6 +147,33 @@ export const clearMessenger = () => {
   messagesContainer.querySelectorAll("*").forEach((n) =>n.remove());
 };
 
+export const showRecordingPanel = () => {
+  const recordingButtons = document.getElementById("video_recording_buttons");
+  showElement(recordingButtons);
+
+  const StartRecordingButton = document.getElementById("start_recording_button");
+  hideElement(startRecordingButton);
+}
+
+export const resetRecordingButtons = () => {
+  const startRecordingButton = document.getElementById("start_recording_button");
+  const recordingButtons = document.getElementById("video_recording_buttons");
+  hideElement(recordingButtons);
+  showElement(startRecordingButton);
+}
+
+export const switchRecordingButtons = (switchRecordingButtons = false) =>{
+  const resumeButton = document.getElementById('resume_recording_button');
+  const pauseButton = document.getElementById('pause_recording_button');
+
+  if(switchRecordingButton){
+    hideElement(pauseButton);
+    showElement(resumeButton);
+  }else{
+    hideElement(resumeButton);
+    showElement(pauseButton);
+  }
+}
 const enableDashboard = () => {
   const dashboardBlocker = document.getElementById("dashboard_blur");
   if (!dashboardBlocker.classList.contains("display_none")) {

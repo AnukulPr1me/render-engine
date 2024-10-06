@@ -128,7 +128,7 @@ export const getLeftMessage = (message) => {
     const messageParagraph = document.createElement("p");
     messageParagraph.classList.add("message_left_paragraph");
     messageParagraph.innerHTML = message;
-    messageParagraph.appendChild(messageParagraph);
+    messageContainer.appendChild(messageParagraph);
 
     return messageContainer;
 }
