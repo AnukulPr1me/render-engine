@@ -252,3 +252,32 @@ export const switchBetweenCameraAndScreenSharing = async (
     console.error("error occurred while sharing screen", err);
   }
 };
+
+
+export const handleHangUp = () => {
+  console.log("hanging up");
+  const data = {
+    connectedUserSocketId: connectedUserDetails.socketId,
+  }
+  wss.sendUserHangedUp(data);
+  closePeerConnectionAndResetState();
+}
+
+export const handleConnectedUserHangedUp = () => {
+  console.log("connected peer hanged up");
+  closePeerConnectionAndResetState();
+}
+
+const closePeerConnectionAndResetState = () => {
+  if(peerConnection){
+    peerConnection.close();
+    peerConnection = null;
+  }
+
+  if(connectedUserDetails.callType === constants.callType.VIDEO_PERSONAL_CODE || connectedUserDetails.callType === constants.callType.VIDEO_STRANGER){
+    store.getState().localStream.getVideoTracks()[0].enabled = true;
+    store.getState().localStream.getAudioTracks()[0].enabled = true;
+  }
+  ui.updateUIAfterHangUp(connectedUserDetails.callType);
+  connectedUserDetails = null;
+};
