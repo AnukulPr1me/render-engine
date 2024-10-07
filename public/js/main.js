@@ -92,7 +92,7 @@ sendMessageButton.addEventListener("click", () => {
 
 const startRecordingButton = document.getElementById('start_recording_button');
 startRecordingButton.addEventListener('click', () => {
-  recordingUtils.startRecording();
+  recordingUtils.StartRecording();
   ui.showRecordingPanel();
 });
 

@@ -2,14 +2,15 @@ import * as store from "./store.js";
 
 let mediaRecorder;
 
-const vp9 = "video/webm; codecs=vp=9";
+const vp9Codec = "video/webm; codecs=vp=9";
 const vp9Options = {MimeType: vp9Codec};
+const recorderChunks = [];
 
 export const StartRecording = () => {
-    const recordStream = store.getState().remoteStream;
+    const remoteStream = store.getState().remoteStream;
 
-    if(mediaRecorder.isTypeSupported(vp9Codec)){
-        mediaRecorder = new MediaRecorder(recordStream, vp9Options);
+    if(MediaRecorder.isTypeSupported(vp9Codec)){
+        mediaRecorder = new MediaRecorder(remoteStream, vp9Options);
     }else {
         mediaRecorder = new MediaRecorder(remoteStream);
     }
@@ -33,7 +34,7 @@ export const stopRecording = () => {
 
 
 const downloadRecordedVideo = () => {
-    const blob = new Blob(recorderChunksk, {
+    const blob = new Blob(recorderChunks, {
         type: 'video/webm'
     });
 

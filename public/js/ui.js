@@ -137,13 +137,13 @@ export const updateCameraButton = (cameraActive) => {
 };
 
 export const appendMessage = (message, right = false) => {
-  const messagesContainer = document.getElementById("message_container");
+  const messagesContainer = document.getElementById("messages_container");
   const messageElement = right ? elements.getRightMessage(message) : elements.getLeftMessage(message);
   messagesContainer.appendChild(messageElement);
 };
 
 export const clearMessenger = () => {
-  const messagesContainer = document.getElementById("message_container");
+  const messagesContainer = document.getElementById("messages_container");
   messagesContainer.querySelectorAll("*").forEach((n) =>n.remove());
 };
 
@@ -151,7 +151,7 @@ export const showRecordingPanel = () => {
   const recordingButtons = document.getElementById("video_recording_buttons");
   showElement(recordingButtons);
 
-  const StartRecordingButton = document.getElementById("start_recording_button");
+  const startRecordingButton = document.getElementById("start_recording_button");
   hideElement(startRecordingButton);
 }
 
@@ -166,7 +166,7 @@ export const switchRecordingButtons = (switchRecordingButtons = false) =>{
   const resumeButton = document.getElementById('resume_recording_button');
   const pauseButton = document.getElementById('pause_recording_button');
 
-  if(switchRecordingButton){
+  if(switchRecordingButtons){
     hideElement(pauseButton);
     showElement(resumeButton);
   }else{
