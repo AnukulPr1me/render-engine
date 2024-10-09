@@ -93,10 +93,10 @@ export const showInfoDialog = (preOfferAnswer) => {
 };
 
 export const showCallElements = (callType) => {
-  if (callType === constants.callType.CHAT_PERSONAL_CODE) {
+  if (callType === constants.callType.CHAT_PERSONAL_CODE || callType === constants.callType.CHAT_STRANGER) {
     showChatCallElements();
   }
-  if (callType === constants.callType.VIDEO_PERSONAL_CODE) {
+  if (callType === constants.callType.VIDEO_PERSONAL_CODE || callType === constants.callType.VIDEO_STRANGER) {
     showVideoCallElements();
   }
 };
@@ -204,6 +204,24 @@ export const updateUIAfterHangUp = (callType) => {
   showElement(placeholder);
 
   removeAllDialogs();
+}
+
+export const updateStrangerCheckbox = (allowConnection) => {
+  const checkboxCheckImg = document.getElementById("allow_strangers_checkbox_image");
+  allowConnection ? showElement(checkboxCheckImg) : hideElement(checkboxCheckImg);
+
+}
+
+export const showNoStrangerEnableDialog = () => {
+  const infoDialog = elements.getInfoDialog("No Stranger availabile", "Please try again");
+  if (infoDialog) {
+    const dialog = document.getElementById("dialog");
+    dialog.appendChild(infoDialog);
+
+    setTimeout(() => {
+      removeAllDialogs();
+    }, [4000]);
+  }
 }
 
 const enableDashboard = () => {

@@ -4,6 +4,7 @@ import * as webRTCHandler from "./webRTCHandler.js";
 import * as constants from "./const.js";
 import * as ui from "./ui.js";
 import * as recordingUtils from "./recordingUtils.js";
+import * as strangerUtils from "./strangerUtils.js";
 const socket = io("/");
 
 wss.registerSocketEvents(socket);
@@ -94,6 +95,24 @@ const startRecordingButton = document.getElementById('start_recording_button');
 startRecordingButton.addEventListener('click', () => {
   recordingUtils.StartRecording();
   ui.showRecordingPanel();
+});
+
+const strangerChatButton = document.getElementById("stranger_chat_button");
+strangerChatButton.addEventListener("click", () => {
+  strangerUtils.getStrangerSocketIdAndConnect(constants.callType.CHAT_STRANGER);
+});
+const strangerVideoButton = document.getElementById("stranger_video_button");
+strangerVideoButton.addEventListener("click", () => {
+  strangerUtils.getStrangerSocketIdAndConnect(constants.callType.VIDEO_STRANGER);
+});
+
+const checkbox = document.getElementById("allow_strangers_checkbox");
+checkbox.addEventListener("click", () => {
+  console.log("clicked checkbox");
+  const checkboxState = store.getState().allowConnectionsFromStrangers;
+  ui.updateStrangerCheckbox(!checkboxState);
+  store.setAllowConnectionFromStrangers(!checkboxState);
+  strangerUtils.changeStrangerConnectionStatus(!checkboxState);
 });
 
 const stopRecordingButton = document.getElementById('stop_recording_button');
