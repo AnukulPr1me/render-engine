@@ -60,22 +60,16 @@ To run this project on your local machine, follow these steps:
 ----------------
 
 2. To start the server, use the following command:
-
-bash
-
-Copy code
-
-`npm start`
+   ```bash
+   npm start
+   
+----------------
 
 Open the Application in Your Browser
 ------------------------------------
 
 3. Once the server is running, open the application by visiting the following URL in your browser:
-
-bash
-
-Copy code
-
+   ```bash
 `http://localhost:7001/`
 
 How It Works
