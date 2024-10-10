@@ -56,4 +56,54 @@ To run this project on your local machine, follow these steps:
 1. Clone the repository:  
    ```bash
    git clone https://github.com/anukulpr1me/we.git
-   cd we
+   Start the Server
+----------------
+
+2. To start the server, use the following command:
+
+bash
+
+Copy code
+
+`npm start`
+
+Open the Application in Your Browser
+------------------------------------
+
+3. Once the server is running, open the application by visiting the following URL in your browser:
+
+bash
+
+Copy code
+
+`http://localhost:7001/`
+
+How It Works
+------------
+
+### Creating a Video Chat Session
+
+-   Each user is provided with a unique personal code.
+-   They can share this code with the person they want to communicate with.
+-   Once both users enter each other's code, a direct video connection is established.
+
+### Talking to Strangers
+
+-   Users can enable the 'Talk to a Stranger' feature by checking a checkbox.
+-   The system will automatically match them with another random user, if available.
+
+### Recording Sessions
+
+-   Users can record their entire video session, including any shared screens or chat logs.
+
+Future Enhancements
+-------------------
+
+-   **Group Video Calls**: Support for multiple users in the same call.
+-   **Chatroom Creation**: Ability to create chatrooms for group discussions.
+-   **Improved UI**: Further refinements to the user interface for better usability.
+
+Conclusion
+----------
+
+**WE** is a fully functional, real-time video chat and messaging platform powered by WebRTC, JavaScript, HTML, and CSS. With features like screen sharing, random user pairing, and recording, it provides a complete communication solution for personal or professional use.
