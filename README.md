@@ -56,7 +56,6 @@ To run this project on your local machine, follow these steps:
 1. Clone the repository:  
    ```bash
    git clone https://github.com/anukulpr1me/we.git
-   Start the Server
 ----------------
 
 2. To start the server, use the following command:
@@ -65,12 +64,12 @@ To run this project on your local machine, follow these steps:
    
 ----------------
 
-Open the Application in Your Browser
-------------------------------------
 
-3. Once the server is running, open the application by visiting the following URL in your browser:
+3. Open the Application in Your Browser:
    ```bash
-`http://localhost:7001/`
+   http://localhost:7001/
+   
+----------------
 
 How It Works
 ------------
