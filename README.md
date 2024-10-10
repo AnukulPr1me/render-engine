@@ -1,7 +1,7 @@
 # WE - WebRTC Video Chat Application
 
 ## Project Overview
-
+![Screenshot 2024-10-10 145236](https://github.com/user-attachments/assets/96bca009-f0ac-41ac-ad57-fea8cf561aa9)
 **WE** is a real-time video chat and messaging application built using WebRTC, JavaScript, HTML, and CSS. This project allows users to connect with others through video calls, share their screens, and engage in text-based chatting. Users can either connect with someone directly using a personal code or talk to a stranger by enabling the random chat feature. Additionally, the app includes the functionality to record video calls and chat sessions for later reference.
 
 The key technologies used in this project include WebRTC for peer-to-peer (P2P) communication, Socket.IO for managing connections between users, and vanilla JavaScript for managing the UI.
